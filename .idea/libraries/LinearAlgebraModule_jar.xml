@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="LinearAlgebraModule_jar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../численные методы/LinearAlgebraModule/out/artifacts/LinearAlgebraModule_jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../численные методы/LinearAlgebraModule/out/artifacts/LinearAlgebraModule_jar" recursive="false" />
+  </library>
+</component>

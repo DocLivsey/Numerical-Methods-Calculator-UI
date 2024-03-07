@@ -12,7 +12,7 @@ public class Parser {
 //
 //    analyseMultiDiv : analyseFactor ( ( '*' | '/' ) analyseFactor )* ;
 //
-//    analyseFactor : function | unary | NUMBER | '(' expression ')' ;
+//    analyseFactor : function | unary | NUMBER | VARIABLE | '(' expression ')' ;
 //
 //    unary : '-' analyseFactor
 
@@ -189,26 +189,26 @@ public class Parser {
         return lexemes;
     }
 
-    public static double analyseExpression(LexemeBuffer lexemes) {
+    public static double analyseExpression(LexemeBuffer lexemes, double variable) {
         Lexeme lexeme = lexemes.next();
         if (lexeme.type == LexemeType.EOF) {
             return 0;
         } else {
             lexemes.back();
-            return analysePlusMinus(lexemes);
+            return analysePlusMinus(lexemes, variable);
         }
     }
 
-    public static double analysePlusMinus(LexemeBuffer lexemes) {
-        double value = analyseMultiDiv(lexemes);
+    public static double analysePlusMinus(LexemeBuffer lexemes, double variable) {
+        double value = analyseMultiDiv(lexemes, variable);
         while (true) {
             Lexeme lexeme = lexemes.next();
             switch (lexeme.type) {
                 case OP_PLUS:
-                    value += analyseMultiDiv(lexemes);
+                    value += analyseMultiDiv(lexemes, variable);
                     break;
                 case OP_MINUS:
-                    value -= analyseMultiDiv(lexemes);
+                    value -= analyseMultiDiv(lexemes, variable);
                     break;
                 case EOF:
                 case RIGHT_BRACKET:
@@ -222,16 +222,16 @@ public class Parser {
         }
     }
 
-    public static double analyseMultiDiv(LexemeBuffer lexemes) {
-        double value = analyseFactor(lexemes);
+    public static double analyseMultiDiv(LexemeBuffer lexemes, double variable) {
+        double value = analyseFactor(lexemes, variable);
         while (true) {
             Lexeme lexeme = lexemes.next();
             switch (lexeme.type) {
                 case OP_MUL:
-                    value *= analyseFactor(lexemes);
+                    value *= analyseFactor(lexemes, variable);
                     break;
                 case OP_DIV:
-                    value /= analyseFactor(lexemes);
+                    value /= analyseFactor(lexemes, variable);
                     break;
                 case EOF:
                 case RIGHT_BRACKET:
@@ -247,32 +247,34 @@ public class Parser {
         }
     }
 
-    public static double analyseFactor(LexemeBuffer lexemes) {
+    public static double analyseFactor(LexemeBuffer lexemes, double variable) {
         Lexeme lexeme = lexemes.next();
         switch (lexeme.type) {
             case NAME:
                 lexemes.back();
-                return analyseFunction(lexemes);
+                return analyseFunction(lexemes, variable);
             case OP_MINUS:
-                double value = analyseFactor(lexemes);
+                double value = analyseFactor(lexemes, variable);
                 return -value;
             case NUMBER:
                 return Integer.parseInt(lexeme.value);
             case LEFT_BRACKET:
-                value = analysePlusMinus(lexemes);
+                value = analysePlusMinus(lexemes, variable);
                 lexeme = lexemes.next();
                 if (lexeme.type != LexemeType.RIGHT_BRACKET) {
                     throw new RuntimeException("Unexpected token: " + lexeme.value
                             + " at position: " + lexemes.getPos());
                 }
                 return value;
+            case VARIABLE:
+                return variable;
             default:
                 throw new RuntimeException("Unexpected token: " + lexeme.value
                         + " at position: " + lexemes.getPos());
         }
     }
 
-    public static double analyseFunction(LexemeBuffer lexemeBuffer) {
+    public static double analyseFunction(LexemeBuffer lexemeBuffer, double variable) {
         String name = lexemeBuffer.next().value;
         Lexeme lexeme = lexemeBuffer.next();
 
@@ -286,7 +288,7 @@ public class Parser {
         if (lexeme.type != LexemeType.RIGHT_BRACKET) {
             lexemeBuffer.back();
             do {
-                args.add(analyseExpression(lexemeBuffer));
+                args.add(analyseExpression(lexemeBuffer, variable));
                 lexeme = lexemeBuffer.next();
 
                 if (lexeme.type != LexemeType.COMMA && lexeme.type != LexemeType.RIGHT_BRACKET) {

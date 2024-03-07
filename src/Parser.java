@@ -4,19 +4,20 @@ public class Parser {
     /*------------------------------------------------------------------
      * PARSER RULES
      *------------------------------------------------------------------*/
-//    function : NAME '(' (expr (',' expr)+)? ')'
+//    analyseFunction : NAME '(' (analyseExpression (',' analyseExpression)+)? ')'
 //
-//    expression : plusminus* EOF ;
+//    analyseExpression : analysePlusMinus * EOF ;
 //
-//    plusminus: multdiv ( ( '+' | '-' ) multdiv )* ;
+//    analysePlusMinus: analyseMultiDiv ( ( '+' | '-' ) analyseMultiDiv )* ;
 //
-//    multdiv : factor ( ( '*' | '/' ) factor )* ;
+//    analyseMultiDiv : analyseFactor ( ( '*' | '/' ) analyseFactor )* ;
 //
-//    factor : function | unary | NUMBER | '(' expression ')' ;
+//    analyseFactor : function | unary | NUMBER | '(' expression ')' ;
 //
-//    unary : '-' factor
+//    unary : '-' analyseFactor
 
-    public static HashMap<String, MathFunction> functionMap;
+    public static HashMap<String, MathFunction> functionMap = getFunctionMap();
+    public static HashMap<String, Double> variableMap;
 
     public static HashMap<String, MathFunction> getFunctionMap()
     {
@@ -59,10 +60,15 @@ public class Parser {
         });
         return functionTable;
     }
+
+    public static HashMap<String, Double> setVariableMap() {
+        return null;
+    }
+
     public enum LexemeType {
         LEFT_BRACKET, RIGHT_BRACKET,
         OP_PLUS, OP_MINUS, OP_MUL, OP_DIV,
-        NUMBER, NAME, COMMA,
+        NUMBER, VARIABLE, NAME, COMMA,
         EOF;
     }
     public static class Lexeme {
@@ -108,7 +114,7 @@ public class Parser {
     public static List<Lexeme> lexAnalyze(String expText) {
         ArrayList<Lexeme> lexemes = new ArrayList<>();
         int pos = 0;
-        while (pos< expText.length()) {
+        while (pos < expText.length()) {
             char c = expText.charAt(pos);
             switch (c) {
                 case '(':
@@ -159,15 +165,16 @@ public class Parser {
                                 do {
                                     sb.append(c);
                                     pos++;
-                                    if (pos >= expText.length()) {
+                                    if (pos >= expText.length())
                                         break;
-                                    }
                                     c = expText.charAt(pos);
                                 } while (c >= 'a' && c <= 'z'
                                         || c >= 'A' && c <= 'Z');
 
                                 if (functionMap.containsKey(sb.toString())) {
                                     lexemes.add(new Lexeme(LexemeType.NAME, sb.toString()));
+                                } else if (c != '(') {
+                                    lexemes.add(new Lexeme(LexemeType.VARIABLE, sb.toString()));
                                 } else {
                                     throw new RuntimeException("Unexpected character: " + c);
                                 }
@@ -182,26 +189,26 @@ public class Parser {
         return lexemes;
     }
 
-    public static double expr(LexemeBuffer lexemes) {
+    public static double analyseExpression(LexemeBuffer lexemes) {
         Lexeme lexeme = lexemes.next();
         if (lexeme.type == LexemeType.EOF) {
             return 0;
         } else {
             lexemes.back();
-            return plusminus(lexemes);
+            return analysePlusMinus(lexemes);
         }
     }
 
-    public static double plusminus(LexemeBuffer lexemes) {
-        double value = multdiv(lexemes);
+    public static double analysePlusMinus(LexemeBuffer lexemes) {
+        double value = analyseMultiDiv(lexemes);
         while (true) {
             Lexeme lexeme = lexemes.next();
             switch (lexeme.type) {
                 case OP_PLUS:
-                    value += multdiv(lexemes);
+                    value += analyseMultiDiv(lexemes);
                     break;
                 case OP_MINUS:
-                    value -= multdiv(lexemes);
+                    value -= analyseMultiDiv(lexemes);
                     break;
                 case EOF:
                 case RIGHT_BRACKET:
@@ -215,16 +222,16 @@ public class Parser {
         }
     }
 
-    public static double multdiv(LexemeBuffer lexemes) {
-        double value = factor(lexemes);
+    public static double analyseMultiDiv(LexemeBuffer lexemes) {
+        double value = analyseFactor(lexemes);
         while (true) {
             Lexeme lexeme = lexemes.next();
             switch (lexeme.type) {
                 case OP_MUL:
-                    value *= factor(lexemes);
+                    value *= analyseFactor(lexemes);
                     break;
                 case OP_DIV:
-                    value /= factor(lexemes);
+                    value /= analyseFactor(lexemes);
                     break;
                 case EOF:
                 case RIGHT_BRACKET:
@@ -240,18 +247,19 @@ public class Parser {
         }
     }
 
-    public static double factor(LexemeBuffer lexemes) {
+    public static double analyseFactor(LexemeBuffer lexemes) {
         Lexeme lexeme = lexemes.next();
         switch (lexeme.type) {
             case NAME:
                 lexemes.back();
-                return func(lexemes);
+                return analyseFunction(lexemes);
             case OP_MINUS:
-                return -factor(lexemes);
+                double value = analyseFactor(lexemes);
+                return -value;
             case NUMBER:
                 return Integer.parseInt(lexeme.value);
             case LEFT_BRACKET:
-                value = plusminus(lexemes);
+                value = analysePlusMinus(lexemes);
                 lexeme = lexemes.next();
                 if (lexeme.type != LexemeType.RIGHT_BRACKET) {
                     throw new RuntimeException("Unexpected token: " + lexeme.value
@@ -264,7 +272,7 @@ public class Parser {
         }
     }
 
-    public static double func(LexemeBuffer lexemeBuffer) {
+    public static double analyseFunction(LexemeBuffer lexemeBuffer) {
         String name = lexemeBuffer.next().value;
         Lexeme lexeme = lexemeBuffer.next();
 
@@ -278,7 +286,7 @@ public class Parser {
         if (lexeme.type != LexemeType.RIGHT_BRACKET) {
             lexemeBuffer.back();
             do {
-                args.add(expr(lexemeBuffer));
+                args.add(analyseExpression(lexemeBuffer));
                 lexeme = lexemeBuffer.next();
 
                 if (lexeme.type != LexemeType.COMMA && lexeme.type != LexemeType.RIGHT_BRACKET) {
@@ -288,5 +296,32 @@ public class Parser {
             } while (lexeme.type == LexemeType.COMMA);
         }
         return functionMap.get(name).function(args).getY();
+    }
+    public static class AnalyseString {
+        public static boolean isDigit(String string)
+        { return string.matches("[-+]?\\d+"); }
+        public static String findNotDigitCharPos(String string)
+        {
+            StringBuilder notDigitCharsMessage = new StringBuilder();
+            char[] charsOfString = string.toCharArray();
+            for (var ch : charsOfString)
+                if (!isDigit(ch + ""))
+                    notDigitCharsMessage.append("not digit char: ").append(ch).append(" at: ").append(string.indexOf(ch)).append("\n");
+            return notDigitCharsMessage.toString();
+        }
+        public static boolean isLetter(String string)
+        { return !string.toLowerCase().equals(string.toUpperCase()); }
+        public static String findNotLetterCharPos(String string)
+        {
+            StringBuilder notLetterCharsMessage = new StringBuilder();
+            char[] charsOfString = string.toCharArray();
+            for (var ch : charsOfString)
+                if (!isLetter(ch + ""))
+                    notLetterCharsMessage.append("not letter char: ").append(ch).append(" at: ").append(string.indexOf(ch)).append("\n");
+            return notLetterCharsMessage.toString();
+        }
+    }
+    public static class ParseVariable {
+
     }
 }

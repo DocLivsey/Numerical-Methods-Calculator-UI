@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-import static dclvs.gui.gui.MainWindow.MainMenu;
+import static dclvs.gui.MainWindow.MainMenu;
 
 public class MatrixWindow {
     public static StackPane CombineWindow(Node... nodes) {

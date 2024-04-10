@@ -1,4 +1,4 @@
-package dclvs.gui.gui;
+package dclvs.gui;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

@@ -1,27 +1,23 @@
-package dclvs.gui;
+package testApps.oldCalculatorGUI;
 
+import dclvs.gui.CalculatorApp;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.*;
 
 public class MainWindow {
-    public static void setMainWindow(CalculatorApp app) throws IOException {
+    public static void setMainWindow(TestApp app) throws IOException {
         app.previousScene = app.currentScene;
         app.currentScene = new Scene(CombineWindow(StayWithUs(app), MainMenu(app)), Double.MAX_VALUE, Double.MAX_VALUE);
         app.primaryStage.setScene(app.currentScene);
@@ -29,7 +25,7 @@ public class MainWindow {
     public static StackPane CombineWindow(Node... nodes) {
         return new StackPane(nodes);
     }
-    public static HBox MainMenu(CalculatorApp app) {
+    public static HBox MainMenu(TestApp app) {
         Menu matrixMenu = new Menu("Matrix calc");
         MenuItem solving = new MenuItem("Solving Linear System");
         MenuItem operations = new MenuItem("Matrices operations");
@@ -46,7 +42,7 @@ public class MainWindow {
         return hBox;
     }
 
-    public static EventHandler<ActionEvent> getActionEventEventHandler(CalculatorApp app) {
+    public static EventHandler<ActionEvent> getActionEventEventHandler(TestApp app) {
         StackPane pane = new StackPane();
         return event -> {
             app.previousScene = app.currentScene;
@@ -67,7 +63,7 @@ public class MainWindow {
         };
     }
 
-    public static GridPane StayWithUs(CalculatorApp app) throws IOException {
+    public static GridPane StayWithUs(TestApp app) throws IOException {
         GridPane gridPane = new GridPane();
         Button button = new Button("Change");
         button.setOnAction(actionEvent -> {
@@ -76,14 +72,35 @@ public class MainWindow {
             app.currentScene = new Scene(new StackPane(new Label("New")), 300, 200);
             app.primaryStage.setScene(app.currentScene);
         });
-        Image image = new Image(new FileInputStream("src/main/resources/images/" +
+        /*Image image = new Image(new FileInputStream("src/main/resources/images/" +
                 "welcome_window/istockphoto-1364326606-170667a.jpg"));
         ImageView imageView = new ImageView(image);
         imageView.setX(200);
         imageView.setY(100);
-        gridPane.getChildren().add(imageView);
+        gridPane.getChildren().add(imageView);*/
         gridPane.getChildren().add(button);
         gridPane.setAlignment(Pos.CENTER);
         return gridPane;
+    }
+}
+class TestApp extends Application {
+    public Stage primaryStage;
+    public Scene currentScene;
+    public Scene previousScene;
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        testWindow(this.primaryStage);
+    }
+
+    public void testWindow(Stage primaryStage) throws IOException {
+        this.primaryStage = primaryStage;
+        MainWindow.setMainWindow(this);
+        this.primaryStage.setTitle("Calculator");
+        this.primaryStage.show();
     }
 }

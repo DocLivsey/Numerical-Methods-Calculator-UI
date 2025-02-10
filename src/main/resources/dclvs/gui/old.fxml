@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<?import javafx.scene.effect.Light?>
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #e1e1e1;">
+    <children>
+        <BorderPane prefHeight="500.0" prefWidth="750.0">
+            <left>
+                <Accordion BorderPane.alignment="CENTER">
+                    <panes>
+                        <TitledPane animated="false" text="Matrices calculator">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <RadioButton fx:id="eigenProblemRadio" layoutY="4.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="201.0" text="Eigen problem">
+                                            <toggleGroup>
+                                                <ToggleGroup fx:id="MatricesCalc" />
+                                            </toggleGroup></RadioButton>
+                                        <RadioButton fx:id="matricesOperationsRadio" layoutX="1.0" layoutY="39.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Matrices operations" toggleGroup="$MatricesCalc" />
+                                    </children></AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Equations solving">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                    </children></AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Functions operations">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </left>
+            <top>
+                <MenuBar BorderPane.alignment="CENTER">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </top>
+            <effect>
+                <DropShadow>
+                    <color>
+                        <Color red="0.29019609093666077" green="0.239215686917305" blue="0.239215686917305" />
+                    </color>
+                    <input>
+                        <Lighting diffuseConstant="1.09" specularExponent="24.14" surfaceScale="0.0">
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant>
+                                    <color>
+                                        <Color red="0.8823529481887817" green="0.8823529481887817" blue="0.8823529481887817" />
+                                    </color>
+                                </Light.Distant>
+                            </light>
+                        </Lighting>
+                    </input>
+                </DropShadow>
+            </effect>
+            <center>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab text="Telegram Bot">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </Tab>
+                        <Tab text="Author`s Github">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Pane layoutX="89.0" layoutY="84.0" prefHeight="279.0" prefWidth="368.0">
+                                            <children>
+                                                <ImageView fitHeight="141.0" fitWidth="182.0" layoutX="105.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../images/my_git_icon.jpg" />
+                                                    </image>
+                                                </ImageView>
+                                                <Hyperlink layoutX="78.0" layoutY="14.0" text="GitHub - DocLivsey">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Hyperlink>
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </center>
+        </BorderPane>
+    </children>
+    <effect>
+        <Lighting diffuseConstant="1.09" specularExponent="17.24" surfaceScale="1.16">
+            <bumpInput>
+                <Shadow />
+            </bumpInput>
+            <light>
+                <Light.Distant/>
+            </light>
+        </Lighting>
+    </effect>
+</AnchorPane>

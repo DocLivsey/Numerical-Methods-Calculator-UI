@@ -1,176 +1,335 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.effect.Light?>
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="480.0" prefWidth="1009.0" style="-fx-background-color: #e1e1e1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dclvs.gui.CalculatorController">
-    <children>
-        <BorderPane prefHeight="480.0" prefWidth="1009.0">
-            <left>
-                <Accordion BorderPane.alignment="CENTER" expandedPane="$matricesTiledPane">
-                    <panes>
-                        <TitledPane fx:id="matricesTiledPane" text="Matrices calculator">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                        <RadioButton fx:id="eigenProblemRadio" layoutY="4.0" mnemonicParsing="false" onAction="#switchEigenProblemScene" prefHeight="35.0" prefWidth="201.0" text="Eigen problem">
-                                            <toggleGroup>
-                                                <ToggleGroup fx:id="MatricesCalc" />
-                                            </toggleGroup></RadioButton>
-                                        <RadioButton fx:id="matricesOperationsRadio" layoutX="1.0" layoutY="39.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" selected="true" text="Matrices operations" toggleGroup="$MatricesCalc" />
-                                    </children></AnchorPane>
-                            </content>
-                        </TitledPane>
-                        <TitledPane text="Equations solving">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                    </children></AnchorPane>
-                            </content>
-                        </TitledPane>
-                        <TitledPane text="Functions operations">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
-                        </TitledPane>
-                    </panes>
-                </Accordion>
-            </left>
-            <top>
-                <MenuBar BorderPane.alignment="CENTER">
-                    <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-            </top>
-            <effect>
-                <DropShadow>
-                    <color>
-                        <Color red="0.29019609093666077" green="0.239215686917305" blue="0.239215686917305" />
-                    </color>
-                    <input>
-                        <Lighting diffuseConstant="1.09" specularExponent="24.14" surfaceScale="0.0">
-                            <bumpInput>
-                                <Shadow />
-                            </bumpInput>
-                            <light>
-                                <Light.Distant>
-                                    <color>
-                                        <Color red="0.8823529481887817" green="0.8823529481887817" blue="0.8823529481887817" />
-                                    </color>
-                                </Light.Distant>
-                            </light>
-                        </Lighting>
-                    </input>
-                </DropShadow>
-            </effect>
-            <center>
-                <AnchorPane prefHeight="200.0" prefWidth="560.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Pane layoutX="40.0" layoutY="49.0" prefHeight="125.0" prefWidth="282.0">
-                            <children>
-                                <GridPane layoutX="15.0" layoutY="3.0" prefHeight="90.0" prefWidth="238.0" scaleY="1.5">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <children>
-                                        <TextField />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="2" />
-                                        <TextField GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                        <TextField GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+<BorderPane fx:id="mainBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="510.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dclvs.gui.MatricesSectionController">
+      <left>
+          <Accordion BorderPane.alignment="CENTER" expandedPane="$matricesTiledPane">
+              <panes>
+                  <TitledPane fx:id="matricesTiledPane" text="Matrices calculator">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                  <RadioButton fx:id="eigenProblemRadio" layoutY="4.0" mnemonicParsing="false" onAction="#switchEigenProblemScene" prefHeight="35.0" prefWidth="201.0" text="Eigen problem">
+                                      <toggleGroup>
+                                          <ToggleGroup fx:id="MatricesCalc" />
+                                      </toggleGroup>
+                        </RadioButton>
+                                  <RadioButton fx:id="matricesOperationsRadio" layoutX="1.0" layoutY="39.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" selected="true" text="Matrices operations" toggleGroup="$MatricesCalc" />
+                              </children>
+                  </AnchorPane>
+                      </content>
+                  </TitledPane>
+                  <TitledPane text="Equations solving">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
                                     </children>
-                                </GridPane>
-                                <CubicCurve controlX1="-213.0" controlX2="-213.0" controlY1="-191.0" controlY2="-140.0" endX="-196.0" endY="-96.5" fill="#17171700" layoutX="211.0" layoutY="212.0" startX="-196.0" startY="-231.5" stroke="#363636" strokeWidth="4.0" />
-                                <CubicCurve controlX1="7.0" controlX2="7.0" controlY1="-31.0" controlY2="26.0" endX="-12.0" endY="67.5" fill="#1f93ff00" layoutX="268.0" layoutY="48.0" startX="-12.0" startY="-67.5" stroke="#363636" strokeWidth="4.0" />
-                            </children>
-                        </Pane>
-                        <Pane layoutX="387.0" layoutY="49.0" prefHeight="125.0" prefWidth="282.0">
-                            <children>
-                                <GridPane layoutX="15.0" layoutY="3.0" prefHeight="90.0" prefWidth="238.0" scaleY="1.5">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <children>
-                                        <TextField />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="2" />
-                                        <TextField GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                        <TextField GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                    </children>
-                                </GridPane>
-                                <CubicCurve controlX1="-213.0" controlX2="-213.0" controlY1="-191.0" controlY2="-140.0" endX="-196.0" endY="-96.5" fill="#17171700" layoutX="211.0" layoutY="212.0" startX="-196.0" startY="-231.5" stroke="#363636" strokeWidth="4.0" />
-                                <CubicCurve controlX1="7.0" controlX2="7.0" controlY1="-31.0" controlY2="26.0" endX="-12.0" endY="67.5" fill="#1f93ff00" layoutX="268.0" layoutY="48.0" startX="-12.0" startY="-67.5" stroke="#363636" strokeWidth="4.0" />
-                            </children>
-                        </Pane>
-                    </children>
-                </AnchorPane>
-            </center>
-        </BorderPane>
-    </children>
-    <effect>
-        <Lighting diffuseConstant="1.09" specularExponent="17.24" surfaceScale="1.16">
-            <bumpInput>
-                <Shadow />
-            </bumpInput>
-            <light>
-                <Light.Distant />
-            </light>
-        </Lighting>
-    </effect>
-</AnchorPane>
+                  </AnchorPane>
+                      </content>
+                  </TitledPane>
+                  <TitledPane text="Functions operations">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      </content>
+                  </TitledPane>
+              </panes>
+          </Accordion>
+      </left>
+      <top>
+          <HBox fx:id="topHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+              <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#forwardToThePast">
+                      <graphic>
+                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../../../images/icons8-back-100.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+                  </Button>
+                  <Button fx:id="forwardButton" mnemonicParsing="false" onAction="#backToTheFuture">
+                      <graphic>
+                          <ImageView fitHeight="16.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../../../images/forward.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+                  </Button>
+                  <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                      <menus>
+                          <Menu mnemonicParsing="false" text="Navigation">
+                              <items>
+                                  <MenuItem mnemonicParsing="false" text="Welcome Window" />
+                              </items>
+                          </Menu>
+                          <Menu mnemonicParsing="false" text="File">
+                              <items>
+                                  <MenuItem mnemonicParsing="false" text="Open" />
+                                  <MenuItem mnemonicParsing="false" text="Close" />
+                              </items>
+                          </Menu>
+                          <Menu mnemonicParsing="false" text="Help">
+                              <items>
+                                  <MenuItem mnemonicParsing="false" text="About" />
+                              </items>
+                          </Menu>
+                      </menus>
+                  </MenuBar>
+              </children>
+          </HBox>
+      </top>
+      <center>
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+              <children>
+                  <Pane layoutX="14.0" layoutY="49.0" prefHeight="204.0" prefWidth="282.0">
+                      <children>
+                          <GridPane fx:id="firstMatrixGrid" layoutX="22.0" layoutY="3.0" prefHeight="90.0" prefWidth="238.0" scaleY="1.5">
+                              <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                  <TextField />
+                                  <TextField GridPane.columnIndex="1" />
+                                  <TextField GridPane.columnIndex="2" />
+                                  <TextField GridPane.rowIndex="1" />
+                                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                  <TextField GridPane.rowIndex="2" />
+                                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              </children>
+                          </GridPane>
+                          <CubicCurve controlX1="-213.0" controlX2="-213.0" controlY1="-191.0" controlY2="-140.0" endX="-196.0" endY="-96.5" fill="#17171700" layoutX="215.0" layoutY="212.0" startX="-196.0" startY="-231.5" stroke="#363636" strokeWidth="4.0" />
+                          <CubicCurve controlX1="7.0" controlX2="7.0" controlY1="-31.0" controlY2="26.0" endX="-12.0" endY="67.5" fill="#1f93ff00" layoutX="273.0" layoutY="48.0" startX="-12.0" startY="-67.5" stroke="#363636" strokeWidth="4.0" />
+                  <ToolBar layoutX="48.0" layoutY="121.0" prefHeight="69.0" prefWidth="186.0">
+                    <items>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Rows">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="TOP_CENTER">
+                                 <children>
+                                  <Button fx:id="increaseFirstMatrixRowButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="+">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="decreaseFirstMatrixRowButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="-">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Columns">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Button fx:id="increaseFirstMatrixColumnButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="+">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="decreaseFirstMatrixColumnButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="-">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                    </items>
+                  </ToolBar>
+                      </children>
+                  </Pane>
+            <Pane layoutX="511.0" layoutY="49.0" prefHeight="204.0" prefWidth="282.0">
+               <children>
+                  <GridPane fx:id="secondMatrixGrid" layoutX="22.0" layoutY="3.0" prefHeight="90.0" prefWidth="238.0" scaleY="1.5">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField />
+                        <TextField GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="2" />
+                        <TextField GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <CubicCurve controlX1="-213.0" controlX2="-213.0" controlY1="-191.0" controlY2="-140.0" endX="-196.0" endY="-96.5" fill="#17171700" layoutX="215.0" layoutY="212.0" startX="-196.0" startY="-231.5" stroke="#363636" strokeWidth="4.0" />
+                  <CubicCurve controlX1="7.0" controlX2="7.0" controlY1="-31.0" controlY2="26.0" endX="-12.0" endY="67.5" fill="#1f93ff00" layoutX="273.0" layoutY="48.0" startX="-12.0" startY="-67.5" stroke="#363636" strokeWidth="4.0" />
+                  <ToolBar layoutX="48.0" layoutY="121.0" prefHeight="69.0" prefWidth="186.0">
+                     <items>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Rows">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Button fx:id="increaseSecondMatrixRowButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="+">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="decreaseSecondMatrixRowButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="-">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Columns">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Button fx:id="increaseSecondMatrixColumnButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="+">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="decreaseSecondMatrixColumnButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="-">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </items>
+                  </ToolBar>
+               </children>
+            </Pane>
+            <VBox alignment="TOP_CENTER" layoutX="310.0" layoutY="14.0" prefHeight="200.0" prefWidth="187.0">
+               <children>
+                  <Label text="Actions with matrices">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="x">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="+">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="-">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Separator layoutY="252.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="2.0" prefWidth="806.0" />
+            <ScrollPane layoutY="254.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="815.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="228.0" prefWidth="814.0">
+                     <children>
+                        <Label layoutX="8.0" layoutY="1.0" text="Result">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+              </children>
+          </AnchorPane>
+      </center>
+   <effect>
+      <Lighting>
+         <bumpInput>
+            <Shadow />
+         </bumpInput>
+         <light>
+            <Light.Distant />
+         </light>
+      </Lighting>
+   </effect>
+  </BorderPane>
